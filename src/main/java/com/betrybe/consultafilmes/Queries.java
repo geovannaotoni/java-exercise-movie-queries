@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Queries {
 
@@ -26,7 +27,11 @@ public class Queries {
    * Consulta 1: Retorne uma lista com os filmes lançados em um ano específico.
    */
   public List<Movie> moviesByGivenYear(int ano) {
-    return emptyList();
+    List<Movie> moviesByYear = this.movies.stream()
+        .filter(movie -> movie.releaseYear == ano)
+        .toList();
+    if (moviesByYear.isEmpty()) return emptyList();
+    return moviesByYear;
   }
 
   /**
