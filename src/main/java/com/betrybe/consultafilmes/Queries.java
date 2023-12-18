@@ -15,6 +15,9 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * The type Queries.
+ */
 public class Queries {
 
   private final Collection<Movie> movies;
@@ -30,7 +33,9 @@ public class Queries {
     List<Movie> moviesByYear = this.movies.stream()
         .filter(movie -> movie.releaseYear == ano)
         .toList();
-    if (moviesByYear.isEmpty()) return emptyList();
+    if (moviesByYear.isEmpty()) {
+      return emptyList();
+    }
     return moviesByYear;
   }
 
@@ -38,7 +43,11 @@ public class Queries {
    * Consulta 2: Retorna uma lista ordenada com os nomes de todos os atores e atrizes.
    */
   public List<String> allActorsInAlphabeticalOrder() {
-    return emptyList(); // TODO: Implementar.
+    List<String> allActors = this.movies.stream()
+        .flatMap(movie -> movie.actors.stream())
+        .sorted()
+        .toList();
+    return allActors;
   }
 
   /**
