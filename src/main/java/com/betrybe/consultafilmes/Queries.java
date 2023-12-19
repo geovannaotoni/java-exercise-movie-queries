@@ -86,7 +86,12 @@ public class Queries {
    * seu nome como um dos itens do campo `directors` do mesmo filme.</p>
    */
   public List<String> actorsThatActedInMoviesOfDirectorInAlphabeticOrder(String diretor) {
-    return emptyList(); // TODO: Implementar.
+    return movies.stream()
+        .filter(movie -> movie.getDirectors().contains(diretor))
+        .flatMap(movie -> movie.getActors().stream())
+        .distinct()
+        .sorted()
+        .toList();
   }
 
   /**
