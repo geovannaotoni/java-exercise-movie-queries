@@ -55,7 +55,10 @@ public class Queries {
    * os filmes que eles interpretaram.
    */
   public Map<String, Set<String>> selectMoviesByActor(String ator) {
-    return emptyMap(); // TODO: Implementar.
+    return this.movies.stream()
+        .filter(movie -> movie.getActors().contains(ator))
+        .map(Movie::getTitle).map(title -> new SimpleImmutableEntry<>(ator, title))
+        .collect(groupingBy(Entry::getKey, mapping(Entry::getValue, toSet())));
   }
 
   /**
