@@ -70,7 +70,10 @@ public class Queries {
    * associado a esta mesma chave.</p>
    */
   public Set<String> actorsThatInterpretThemselves() {
-    return emptySet(); // TODO: Implementar.
+    return movies.stream()
+        .flatMap(movie -> movie.getActorsByCharacters().keySet().stream()
+          .filter(character -> movie.getActorsByCharacters().get(character).contains(character)))
+        .collect(toSet());
   }
 
   /**
