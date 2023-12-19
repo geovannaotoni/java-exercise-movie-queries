@@ -120,6 +120,10 @@ public class Queries {
    * conjunto de filmes que se encaixam na categoria da chave correspondente.</p>
    */
   public Map<String, Set<Movie>> moviesReleasedInYearGroupedByCategory(int ano) {
-    return emptyMap(); // TODO: Implementar (bônus).
+    return movies.stream()
+        .filter(movie -> movie.getReleaseYear() == ano)
+        .flatMap(movie -> movie.getCategories().stream()
+          .map(category -> new SimpleImmutableEntry<>(category, movie)))
+        .collect(groupingBy(Entry::getKey, mapping(Entry::getValue, toSet())));
   }
 }
